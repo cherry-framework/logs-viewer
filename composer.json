@@ -2,7 +2,7 @@
     "name": "cherry-project/logs-viewer",
     "description": "Cherry-project Logs Viewer.",
     "type": "library",
-    "keywords": ["cherry","logs","logs=viewer"],
+    "keywords": ["cherry","logs","logs-viewer"],
     "homepage": "https://github.com/",
     "license": "MIT",
     "authors": [
