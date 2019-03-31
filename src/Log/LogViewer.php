@@ -9,7 +9,10 @@ class LogViewer
     public function __construct()
     {
         $this->logsPath = LOGS_PATH;
+    }
 
+    public function render()
+    {
         $logFiles = $this->_getLogFiles();
 
         $allLogs = [];
