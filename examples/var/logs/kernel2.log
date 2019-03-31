@@ -1,7 +1,4 @@
 [2019-03-30 19:36:47]  INFO: Info Message In /home/abgeo/Programming/MyProjects/PHP/Projects/Cherry-project/Logger/examples/test.php On line 11.
-[2019-03-30 19:36:47]  WARNING: Warning Message In /home/abgeo/Programming/MyProjects/PHP/Projects/Cherry-project/Logger/examples/test.php On line 12.
-[2019-03-30 19:36:47]  ERROR: Error Message In /home/abgeo/Programming/MyProjects/PHP/Projects/Cherry-project/Logger/examples/test.php On line 13.
-[2019-03-30 19:36:47]  DEBUG: Debug Message In /home/abgeo/Programming/MyProjects/PHP/Projects/Cherry-project/Logger/examples/test.php On line 14.
 [2019-03-30 19:36:47]  INFO: Info Message 2 In /home/abgeo/Programming/MyProjects/PHP/Projects/Cherry-project/Logger/examples/test.php On line 16.
 [2019-03-30 19:36:47]  WARNING: Warning Message 2 In /home/abgeo/Programming/MyProjects/PHP/Projects/Cherry-project/Logger/examples/test.php On line 17.
 [2019-03-30 19:36:47]  ERROR: Error Message 2 In /home/abgeo/Programming/MyProjects/PHP/Projects/Cherry-project/Logger/examples/test.php On line 18.

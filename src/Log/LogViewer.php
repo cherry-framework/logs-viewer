@@ -5,7 +5,6 @@ namespace Cherry\Log;
 class LogViewer
 {
     private $logsPath;
-    private $logsFiles;
 
     public function __construct()
     {
@@ -13,9 +12,10 @@ class LogViewer
 
         $logFiles = $this->_getLogFiles();
 
-        $this->logsFiles = $logFiles;
-
-        $logs = $this->_readLogs($this->logsPath . '/' . $logFiles[0]);
+        $allLogs = [];
+        foreach ($logFiles as $logsFile) {
+            $allLogs[] = $this->_readLogs($this->logsPath . '/' . $logsFile);
+        }
 
         require_once __DIR__ . '/../view/logs.php';
     }
@@ -35,6 +35,7 @@ class LogViewer
         }
 
         natsort($logFiles);
+        $logFiles = array_values($logFiles);
 
         return $logFiles;
     }
@@ -49,17 +50,15 @@ class LogViewer
             $line = fgets($handle);
 
             if ($line != '') {
-
                 $dateTimeStart = strpos($line, '[');
                 $dateTimeEnd = strpos($line, ']', $dateTimeStart);
                 $levelEnd = strpos($line, ':', $dateTimeEnd);
 
-                $log = [
+                $logs[] = [
                     "dateTime" => substr($line, $dateTimeStart + 1, $dateTimeEnd - $dateTimeStart - 1),
                     "level" => substr($line, $dateTimeEnd + 3, $levelEnd - $dateTimeEnd - 3),
                     "message" => substr($line, $levelEnd + 2)
                 ];
-                $logs[] = $log;
             }
         }
 

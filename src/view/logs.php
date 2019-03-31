@@ -21,7 +21,9 @@
                     <ul class="nav flex-column">
                         <?php foreach ($logFiles as $k => $v): ?>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#"><?php echo $v; ?></a>
+                                <a class="nav-link collapseLogsTable" href="#" data-togle="logsTableArea-<?php echo $k; ?>">
+                                    <?php echo $v; ?>
+                                </a>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -30,36 +32,40 @@
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <h2>Logs</h2>
-                <p>Found <b><?php echo $logsCount = count($logs); ?></b> <?php echo $logsCount == 1 || $logsCount == 0 ? 'log' : 'logs'; ?>.</p>
 
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm" id="logsTable">
-                        <thead>
-                        <tr>
-                            <th>Date & Time</th>
-                            <th>Log Level</th>
-                            <th>Log Message</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $trClasses = [
-                            'INFO'      => 'table-info',
-                            'WARNING'   => 'table-warning',
-                            'ERROR'     => 'table-danger',
-                            'DEBUG'     => 'table-secondary'
-                        ];
+                <?php
+                $trClasses = [
+                    'INFO' => 'table-info',
+                    'WARNING' => 'table-warning',
+                    'ERROR' => 'table-danger',
+                    'DEBUG' => 'table-secondary'
+                ];
+                ?>
 
-                        foreach ($logs as $k => $log): ?>
-                            <tr id="log-<?php echo $k; ?>" class="<?php echo $trClasses[$log['level']]; ?>">
-                                <td><?php echo $log['dateTime']; ?></td>
-                                <td><?php echo $log['level']; ?></td>
-                                <td><?php echo $log['message']; ?></td>
+                <?php foreach ($allLogs as $k1 => $logs): ?>
+                    <div class="table-responsive logsTableArea" id="logsTableArea-<?php echo $k1; ?>" <?php echo $k1 == 0 ?: 'hidden'; ?>>
+                        <p>Found <b><?php echo $logsCount = count($logs); ?></b> <?php echo $logsCount == 1 || $logsCount == 0 ? 'log' : 'logs'; ?>.</p>
+
+                        <table class="table table-striped table-sm logsTable">
+                            <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Log Level</th>
+                                <th>Log Message</th>
                             </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($logs as $k2 => $log): ?>
+                                <tr id="log-<?php echo $k1 . '-' . $k2; ?>" class="<?php echo $trClasses[$log['level']]; ?>">
+                                    <td width="10%"><?php echo $log['dateTime']; ?></td>
+                                    <td width="10%"><?php echo $log['level']; ?></td>
+                                    <td width="80%"><?php echo $log['message']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php endforeach; ?>
             </main>
         </div>
     </div>
@@ -70,16 +76,23 @@
         </div>
     </footer>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            $('#logsTable').DataTable( {
+            $('.logsTable').DataTable( {
                 "order": [[ 0, "desc" ]]
             } );
         } );
+
+        $('.collapseLogsTable').on('click', function () {
+            let togle = $(this).data('togle');
+
+            $('.logsTableArea').attr('hidden', true);
+            $('#' + togle).attr('hidden', false);
+        });
     </script>
 </body>
 </html>
