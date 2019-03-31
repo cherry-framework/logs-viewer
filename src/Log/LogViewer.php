@@ -17,7 +17,7 @@ class LogViewer
 
         $logs = $this->_readLogs($this->logsPath . '/' . $logFiles[0]);
 
-        require_once __DIR__ . '/../templates/logs.php';
+        require_once __DIR__ . '/../view/logs.php';
     }
 
     private function _getLogFiles()
@@ -39,7 +39,7 @@ class LogViewer
         return $logFiles;
     }
 
-    private function _readLogs(string $logsFile)
+    private function _readLogs($logsFile)
     {
         $logs = [];
 

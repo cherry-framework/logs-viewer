@@ -14,31 +14,23 @@
 
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky pt-5">
+            <nav class="col-md-2 d-md-block sidebar">
+                <div class="sidebar-sticky pt-3">
+                    <h2>Log Files</h2>
+                    <hr>
                     <ul class="nav flex-column">
-
                         <?php foreach ($logFiles as $k => $v): ?>
                             <li class="nav-item">
                                 <a class="nav-link active" href="#"><?php echo $v; ?></a>
                             </li>
                         <?php endforeach; ?>
-
                     </ul>
                 </div>
             </nav>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <h2>Logs</h2>
-
-                <?php
-                    $trClasses = [
-                            'INFO'      => 'table-info',
-                            'WARNING'   => 'table-warning',
-                            'ERROR'     => 'table-danger',
-                            'DEBUG'     => 'table-secondary'
-                    ];
-                ?>
+                <p>Found <b><?php echo $logsCount = count($logs); ?></b> <?php echo $logsCount == 1 || $logsCount == 0 ? 'log' : 'logs'; ?>.</p>
 
                 <div class="table-responsive">
                     <table class="table table-striped table-sm" id="logsTable">
@@ -50,12 +42,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($logs as $k => $log): ?>
-                        <tr id="log-<?php echo $k; ?>" class="<?php echo $trClasses[$log['level']]; ?>">
-                            <td><?php echo $log['dateTime']; ?></td>
-                            <td><?php echo $log['level']; ?></td>
-                            <td><?php echo $log['message']; ?></td>
-                        </tr>
+                        <?php
+                        $trClasses = [
+                            'INFO'      => 'table-info',
+                            'WARNING'   => 'table-warning',
+                            'ERROR'     => 'table-danger',
+                            'DEBUG'     => 'table-secondary'
+                        ];
+
+                        foreach ($logs as $k => $log): ?>
+                            <tr id="log-<?php echo $k; ?>" class="<?php echo $trClasses[$log['level']]; ?>">
+                                <td><?php echo $log['dateTime']; ?></td>
+                                <td><?php echo $log['level']; ?></td>
+                                <td><?php echo $log['message']; ?></td>
+                            </tr>
                         <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -63,6 +63,12 @@
             </main>
         </div>
     </div>
+
+    <footer class="page-footer font-small bg-dark pt-4">
+        <div class="footer-copyright text-center py-3 text-light">© 2019-<?php echo date('Y'); ?> Copyright:
+            <a href="https://github.com/cherry-framework"> Cherry Framework</a>.
+        </div>
+    </footer>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
